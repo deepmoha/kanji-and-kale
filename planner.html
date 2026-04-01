@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#1c3a1c">
+<title>Meal Planner · Kanji & Kale</title>
+<link href="https://fonts.googleapis.com/css2?family=Roca+Two&family=Work+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#faf7f2;--card:#ffffff;
+  --gold:#b87800;--goldp:#fef3dc;
+  --terra:#c4380a;--terrap:#fdf0ea;
+  --green:#2a7a2a;--greenl:#3a8a1a;--greenp:#eaf4e0;
+  --ink:#1a1a1a;--mu:#5a6a58;--border:#d8e8d0;
+  --pu:#6d28d9;--pup:#f5f0ff;
+  --nav-h:68px;--top-h:56px;
+  --safe-b:env(safe-area-inset-bottom,0px);
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{background:var(--bg)}
+body{font-family:'Work Sans',sans-serif;background:var(--bg);color:var(--ink);font-size:15px;line-height:1.6;padding-top:var(--top-h);padding-bottom:calc(var(--nav-h) + var(--safe-b) + 8px);min-height:100vh}
+.topbar{position:fixed;top:0;left:0;right:0;z-index:300;height:var(--top-h);background:#1c3a1c;border-bottom:1px solid #2a5a2a;display:flex;align-items:center;gap:12px;padding:0 16px}
+.topbar-title{font-family:'Roca Two',serif;font-size:20px;color:#fff;flex:1}
+.topbar-title em{color:var(--gold);font-style:italic}
+.bottomnav{position:fixed;bottom:0;left:0;right:0;z-index:300;background:#fff;border-top:1px solid var(--border);height:calc(var(--nav-h) + var(--safe-b));padding-bottom:var(--safe-b);display:flex}
+.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border:none;background:transparent;cursor:pointer;color:var(--mu);font-family:'Work Sans',sans-serif;font-size:10px;font-weight:700;letter-spacing:.04em;padding:8px 4px 4px;text-decoration:none;text-transform:uppercase}
+.nav-item.active{color:#2a7a2a}
+.nav-item .ni{font-size:24px;line-height:1}
+.page{padding:16px 14px 0}
+.section{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:14px}
+.section-title{font-family:'Roca Two',serif;font-size:16px;color:var(--ink);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.section-sub{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);margin-bottom:8px;margin-top:12px}
+.section-sub:first-of-type{margin-top:0}
+.tag-grid{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:4px}
+.tag{padding:5px 11px;border-radius:20px;font-size:12px;font-weight:700;border:1.5px solid var(--border);background:transparent;color:var(--mu);cursor:pointer;transition:all .12s;font-family:'Work Sans',sans-serif}
+.tag.on{background:#1c3a1c;color:#fff;border-color:#1c3a1c}
+.tag.on.gold{background:var(--gold);border-color:var(--gold)}
+.tag.on.terra{background:var(--terra);border-color:var(--terra)}
+.tag.on.pu{background:var(--pu);border-color:var(--pu)}
+.tag.on.nv{background:#2a5a9a;border-color:#2a5a9a}
+textarea,input[type=text]{width:100%;font-family:'Work Sans',sans-serif;font-size:14px;padding:10px 12px;border:1.5px solid var(--border);border-radius:10px;background:#faf7f2;color:var(--ink);resize:vertical}
+textarea:focus,input[type=text]:focus{outline:none;border-color:var(--greenl)}
+.gen-btn{width:100%;padding:15px;border-radius:14px;border:none;background:linear-gradient(135deg,#1c3a1c,var(--greenl));color:#fff;font-family:'Work Sans',sans-serif;font-size:16px;font-weight:700;cursor:pointer;margin-top:6px;letter-spacing:.03em}
+.gen-btn:disabled{opacity:.45;cursor:not-allowed}
+.output-wrap{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:14px;display:none}
+.output-wrap.show{display:block}
+.day-card{border:1px solid var(--border);border-radius:10px;margin-bottom:10px;overflow:hidden}
+.day-header{background:#1c3a1c;color:#fff;padding:10px 14px;font-family:'Roca Two',serif;font-size:15px;display:flex;justify-content:space-between;align-items:center}
+.day-macros{font-size:11px;opacity:.75;font-family:'Work Sans',sans-serif;font-weight:700}
+.day-body{padding:12px 14px}
+.meal-row{padding:8px 0;border-bottom:1px solid var(--border);display:flex;gap:10px;align-items:flex-start}
+.meal-row:last-child{border-bottom:none}
+.meal-type{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);min-width:52px;padding-top:2px;flex-shrink:0}
+.meal-name{font-size:14px;color:var(--ink);font-weight:500;margin-bottom:2px}
+.meal-note{font-size:12px;color:var(--mu);line-height:1.4}
+.meal-chips{display:flex;gap:4px;flex-wrap:wrap;margin-top:4px}
+.meal-chip{font-size:10px;padding:2px 7px;border-radius:5px;background:var(--greenp);color:var(--greenl);font-weight:700}
+.meal-chip.warn{background:var(--goldp);color:var(--gold)}
+.status-bar{text-align:center;padding:14px;color:var(--mu);font-size:13px;display:none}
+.status-bar.show{display:block}
+.thinking-dots span{display:inline-block;animation:blink 1.2s infinite both}
+.thinking-dots span:nth-child(2){animation-delay:.2s}
+.thinking-dots span:nth-child(3){animation-delay:.4s}
+@keyframes blink{0%,80%,100%{opacity:0}40%{opacity:1}}
+.quick-add{display:flex;gap:6px;margin-bottom:8px}
+.quick-add input{flex:1}
+.quick-add button{padding:10px 14px;border-radius:10px;border:1.5px solid var(--border);background:var(--card);color:var(--green);font-weight:700;cursor:pointer;font-size:13px;white-space:nowrap}
+.added-tags{display:flex;flex-wrap:wrap;gap:5px;min-height:24px}
+.added-tag{padding:4px 10px;border-radius:20px;font-size:12px;font-weight:700;background:var(--greenp);color:#1a4a1a;border:1px solid #b0d890;cursor:pointer;display:flex;align-items:center;gap:5px}
+.added-tag .rm{color:var(--terra);font-size:10px}
+.error-box{background:var(--terrap);border:1px solid #f0b090;border-radius:10px;padding:12px 14px;font-size:13px;color:#7a2010;margin-top:8px;display:none}
+.error-box.show{display:block}
+.week-nav{display:flex;gap:8px;margin-bottom:12px}
+.week-btn{flex:1;padding:8px;border-radius:10px;border:1.5px solid var(--border);background:transparent;color:var(--mu);font-size:12px;font-weight:700;cursor:pointer;font-family:'Work Sans',sans-serif}
+.week-btn.active{background:#1c3a1c;color:#fff;border-color:#1c3a1c}
+.copy-row{display:flex;justify-content:flex-end;margin-bottom:10px}
+.copy-btn{padding:7px 14px;border-radius:8px;border:1px solid var(--border);background:var(--card);color:var(--mu);font-size:12px;font-weight:700;cursor:pointer;font-family:'Work Sans',sans-serif}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-title">Meal <em>Planner</em></div>
+</div>
+
+<div class="page">
+
+  <!-- VEGETABLES IN HAND -->
+  <div class="section">
+    <div class="section-title">🥬 Vegetables in hand</div>
+    <div class="quick-add">
+      <input type="text" id="vegInput" placeholder="Type a vegetable and press Add" onkeydown="if(event.key==='Enter')addVeg()">
+      <button onclick="addVeg()">+ Add</button>
+    </div>
+    <div class="added-tags" id="vegTags"></div>
+
+    <div class="section-sub" style="margin-top:14px">Common — tap to add</div>
+    <div class="tag-grid" id="commonVeg"></div>
+  </div>
+
+  <!-- PANTRY & SPROUTS -->
+  <div class="section">
+    <div class="section-title">🫙 Pantry & Sprouts</div>
+    <div class="section-sub">Dals & legumes</div>
+    <div class="tag-grid" id="dalTags"></div>
+    <div class="section-sub">Sprouts ready</div>
+    <div class="tag-grid" id="sproutTags"></div>
+    <div class="section-sub">Pantry staples</div>
+    <div class="tag-grid" id="pantryTags"></div>
+  </div>
+
+  <!-- SPICE PROFILES -->
+  <div class="section">
+    <div class="section-title">🌶 Spice profiles available</div>
+    <div class="section-sub">Always present (Tamil Brahmin base)</div>
+    <div class="tag-grid" id="tamilSpices"></div>
+    <div class="section-sub">Also available</div>
+    <div class="tag-grid" id="extraSpices"></div>
+  </div>
+
+  <!-- PREFERENCES -->
+  <div class="section">
+    <div class="section-title">⚙️ Week preferences</div>
+    <div class="section-sub">Adults goal this week</div>
+    <div class="tag-grid" id="goalTags"></div>
+    <div class="section-sub">Any notes or constraints</div>
+    <textarea id="notes" rows="2" placeholder="e.g. Uma visiting Thursday, have leftover rasam from yesterday, avoid beetroot this week..."></textarea>
+  </div>
+
+  <button class="gen-btn" id="genBtn" onclick="generatePlan()">Generate this week's meal plan ↗</button>
+
+  <div class="status-bar" id="statusBar">
+    <div class="thinking-dots">Analysing your pantry<span>.</span><span>.</span><span>.</span></div>
+  </div>
+  <div class="error-box" id="errorBox"></div>
+</div>
+
+<!-- OUTPUT -->
+<div class="output-wrap" id="outputWrap">
+  <div style="font-family:'Roca Two',serif;font-size:20px;color:var(--ink);margin-bottom:4px" id="planTitle">This week's plan</div>
+  <div style="font-size:13px;color:var(--mu);margin-bottom:14px" id="planSub"></div>
+  <div class="copy-row"><button class="copy-btn" onclick="copyPlan()">Copy as text</button></div>
+  <div id="planDays"></div>
+</div>
+
+<nav class="bottomnav">
+  <a class="nav-item" href="index.html"><span class="ni">🏠</span>Today</a>
+  <a class="nav-item" href="recipes.html"><span class="ni">🃏</span>Recipes</a>
+  <a class="nav-item" href="shopping.html"><span class="ni">🛒</span>Shop</a>
+  <a class="nav-item" href="sprouting.html"><span class="ni">🌱</span>Sprouts</a>
+  <button class="nav-item active"><span class="ni">📅</span>Plan</button>
+</nav>
+
+<script>
+const COMMON_VEG = ['Cauliflower','Broccoli','Cabbage','Carrot','Beans','Okra (Vendakkai)','Brinjal (Kathrikkai)','Beetroot','Sweet Potato','Potato','Raw Banana (Vazhakkai)','Ridge Gourd (Peerkangai)','Ash Gourd (Pooshnikkai)','White Pumpkin','Yellow Pumpkin','Turnip','Spinach','Kothavarangai','Kovakkai','Senai Kilangu','Surakkai','Vazhai Thandu','Drumstick (Murungakkai)','Tomato','Onion / Shallots','Capsicum','Corn','Peas'];
+const DALS = ['Toor dal','Moong dal','Chana dal','Horse gram (Kollu)','Urad dal','Masoor dal','Chana (whole)','Rajma','Black-eyed peas'];
+const SPROUTS = ['Broccoli sprouts','Radish sprouts','Methi sprouts','Moong sprouts'];
+const PANTRY = ['Sesame paste (batch)','Tamarind','Avocado oil','Flaxseed (ground)','Amla powder','Kalonji','Purple cabbage brine','ACV','Coconut (frozen)','Soy milk (homemade)'];
+const TAMIL_SPICES = ['Mustard seeds','Curry leaves','Cumin','Turmeric','Sambar powder','Kalonji','Omam (Ajwain)','Fenugreek (Methi seeds)','Dried red chilli','Asafoetida (Hing)','Coriander powder','Pepper'];
+const EXTRA_SPICES = ['Garam masala','Biryani masala','Saffron','Kashmiri chilli','Bay leaves','Cardamom','Cinnamon','Cloves','Italian herbs','Mexican spices (cumin,oregano,chipotle)','Za\'atar','Miso'];
+const GOALS = ['Max LDL reduction','Max sulforaphane','Blood sugar stability','High protein (90g+)','Light / low calorie week','Gut diversity priority','Thyroid support (T3)','Inflammation reduction'];
+
+let selectedVeg = new Set();
+let selectedDals = new Set();
+let selectedSprouts = new Set();
+let selectedPantry = new Set();
+let selectedTamilSpices = new Set(TAMIL_SPICES);
+let selectedExtraSpices = new Set();
+let selectedGoals = new Set();
+
+function buildTagGroup(items, container, selSet, colorClass='') {
+  const el = document.getElementById(container);
+  el.innerHTML = items.map(item => `<button class="tag${selSet.has(item)?' on'+(colorClass?' '+colorClass:''): ''}" onclick="toggleTag('${item.replace(/'/g,"\\'")}','${container}','${colorClass}')">${item}</button>`).join('');
+}
+
+function toggleTag(item, container, colorClass='') {
+  const map = {
+    commonVeg: selectedVeg, dalTags: selectedDals, sproutTags: selectedSprouts,
+    pantryTags: selectedPantry, tamilSpices: selectedTamilSpices,
+    extraSpices: selectedExtraSpices, goalTags: selectedGoals
+  };
+  const set = map[container];
+  if (!set) return;
+  if (set.has(item)) set.delete(item); else set.add(item);
+  const btn = [...document.getElementById(container).querySelectorAll('.tag')].find(b => b.textContent === item);
+  if (btn) {
+    btn.className = 'tag' + (set.has(item) ? ' on' + (colorClass ? ' '+colorClass : '') : '');
+  }
+}
+
+function addVeg() {
+  const inp = document.getElementById('vegInput');
+  const val = inp.value.trim();
+  if (!val) return;
+  selectedVeg.add(val);
+  renderAddedTags();
+  inp.value = '';
+}
+
+function removeVeg(item) {
+  selectedVeg.delete(item);
+  renderAddedTags();
+}
+
+function renderAddedTags() {
+  const el = document.getElementById('vegTags');
+  const custom = [...selectedVeg].filter(v => !COMMON_VEG.includes(v));
+  el.innerHTML = custom.map(v => `<span class="added-tag" onclick="removeVeg('${v}')">${v} <span class="rm">✕</span></span>`).join('');
+}
+
+function getAllVeg() {
+  const fromCommon = COMMON_VEG.filter(v => selectedVeg.has(v));
+  const custom = [...selectedVeg].filter(v => !COMMON_VEG.includes(v));
+  return [...fromCommon, ...custom];
+}
+
+async function generatePlan() {
+  const vegs = getAllVeg();
+  const dals = [...selectedDals];
+  const sprouts = [...selectedSprouts];
+  const pantry = [...selectedPantry];
+  const spices = [...selectedTamilSpices, ...selectedExtraSpices];
+  const goals = [...selectedGoals];
+  const notes = document.getElementById('notes').value.trim();
+
+  if (vegs.length < 2 && dals.length < 1) {
+    showError('Please select at least a few vegetables and one dal to plan around.');
+    return;
+  }
+
+  document.getElementById('genBtn').disabled = true;
+  document.getElementById('statusBar').className = 'status-bar show';
+  document.getElementById('errorBox').className = 'error-box';
+  document.getElementById('outputWrap').className = 'output-wrap';
+
+  const prompt = `You are the meal planning engine for KanjiAndKale.com — a Tamil Brahmin cooking and longevity website for a near-vegan family of 4 in Suwanee, Atlanta.
+
+FAMILY PROFILE:
+- Amma (45F): LDL 198, ApoB 155, hs-CRP 4.7, Free T3 2.8 (low), HbA1c 5.5%, fasting glucose 86. No coconut oil daily. Near-vegan. Target: ~95-100g net carbs, 90-100g protein/day.
+- Appa: Same near-vegan meals + whey protein 2.5 scoops separately.
+- Kids (13 and 17): Same brunch as adults + white rice add-on. Dinner with the family.
+
+MEAL STRUCTURE (fixed):
+- Brunch daily: cauliflower rice base + kootu + dry curry + rotating gravy (Sambar Mon/Wed/Fri/Sun, Rasam Tue, Vetha Kuzhambu Thu, Kollu Rasam Sat)
+- Dinners: salad first + tofu 125g per adult + one of: roti+sabzi, pulav, biryani, kichdi, dosai
+- Post-workout smoothie (adults, fixed daily — ignore for planning)
+
+KEY RULES:
+- Kalonji dry-pan first in every tadka
+- Flaxseed and amla OFF HEAT only
+- 40-minute chop rule for ALL cruciferous veg (broccoli, cauliflower, cabbage, kale, radish, turnip)
+- Never two high-starch dishes in one meal (potato + vazhakkai + biryani etc.)
+- Never two coconut-based dishes on the same day
+- Pair cruciferous veg ALWAYS with Milagu (Pepper) Sambar — piperine amplifies sulforaphane
+- Pair spinach kootu ALWAYS with tamarind gravy (VK or sambar) — vitamin C for iron
+- Pair carrot/sweet potato/pumpkin with Milagu Sambar — piperine for beta-carotene
+
+WHAT I HAVE:
+Vegetables: ${vegs.length > 0 ? vegs.join(', ') : 'not specified'}
+Dals: ${dals.length > 0 ? dals.join(', ') : 'standard pantry (toor, moong, chana, kollu)'}
+Sprouts ready: ${sprouts.length > 0 ? sprouts.join(', ') : 'assume broccoli and methi ready'}
+Pantry: ${pantry.length > 0 ? pantry.join(', ') : 'standard Tamil pantry'}
+Spice profiles available: ${spices.length > 0 ? spices.join(', ') : 'full Tamil Brahmin spice rack'}
+Goals this week: ${goals.length > 0 ? goals.join(', ') : 'balanced nutrition'}
+Notes: ${notes || 'none'}
+
+OUTPUT FORMAT — return a JSON object only, no markdown, no explanation:
+{
+  "title": "short evocative week title",
+  "theme": "one sentence about what makes this week special nutritionally",
+  "days": [
+    {
+      "day": "Monday",
+      "brunch": {
+        "kootu": "name",
+        "curry": "name",
+        "gravy": "name (from rotation)",
+        "note": "one key nutritional insight for this combination"
+      },
+      "dinner": {
+        "main": "dish name",
+        "type": "roti|pulav|biryani|kichdi|dosai|salad-only",
+        "note": "brief note"
+      },
+      "highlights": ["tag1", "tag2"],
+      "warnings": ["any avoid-pairing warnings relevant today"]
+    }
+  ],
+  "shopping": ["items not in pantry that are needed"],
+  "prepTips": ["2-3 batch prep tips for the week"]
+}
+
+Generate all 7 days. Make the plan coherent — use each vegetable appropriately, rotate dal types for diversity, honour the gravy rotation, and prioritise the stated health goals.`;
+
+  try {
+    const resp = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 4000,
+        system: 'You are a precise Tamil Brahmin meal planner. Output only valid JSON — no markdown, no backticks, no explanation.',
+        messages: [{role:'user', content: prompt}]
+      })
+    });
+    const data = await resp.json();
+    if (data.error) throw new Error(data.error.message);
+
+    let raw = data.content[0].text.trim()
+      .replace(/^```json\n?/,'').replace(/^```\n?/,'').replace(/\n?```$/,'').trim();
+
+    const plan = JSON.parse(raw);
+    renderPlan(plan);
+
+  } catch(e) {
+    showError('Error generating plan: ' + e.message + '. Please try again.');
+  }
+
+  document.getElementById('genBtn').disabled = false;
+  document.getElementById('statusBar').className = 'status-bar';
+}
+
+function renderPlan(plan) {
+  document.getElementById('planTitle').textContent = plan.title || 'This week';
+  document.getElementById('planSub').textContent = plan.theme || '';
+
+  const DAYS_ORDER = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+  const days = plan.days || [];
+
+  let html = '';
+  days.forEach(d => {
+    const b = d.brunch || {};
+    const din = d.dinner || {};
+    const highlights = (d.highlights||[]).map(h=>`<span class="meal-chip">${h}</span>`).join('');
+    const warnings = (d.warnings||[]).map(w=>`<span class="meal-chip warn">⚠ ${w}</span>`).join('');
+
+    html += `<div class="day-card">
+      <div class="day-header">
+        <span>${d.day}</span>
+        <span class="day-macros">${(d.highlights||[]).slice(0,2).join(' · ')}</span>
+      </div>
+      <div class="day-body">
+        <div class="meal-row">
+          <div class="meal-type">Brunch</div>
+          <div style="flex:1">
+            <div class="meal-name">${b.kootu||''} · ${b.curry||''}</div>
+            <div class="meal-note">${b.gravy||''}</div>
+            ${b.note ? `<div class="meal-note" style="margin-top:3px;color:#2a5a2a">${b.note}</div>` : ''}
+          </div>
+        </div>
+        <div class="meal-row">
+          <div class="meal-type">Dinner</div>
+          <div style="flex:1">
+            <div class="meal-name">${din.main||''}</div>
+            ${din.note ? `<div class="meal-note">${din.note}</div>` : ''}
+          </div>
+        </div>
+        ${highlights||warnings ? `<div class="meal-chips" style="padding:6px 0 2px">${highlights}${warnings}</div>` : ''}
+      </div>
+    </div>`;
+  });
+
+  if (plan.prepTips && plan.prepTips.length) {
+    html += `<div class="section" style="margin-top:6px">
+      <div class="section-title">⏰ Batch prep tips</div>
+      ${plan.prepTips.map(t=>`<div style="padding:5px 0;font-size:13px;color:var(--ink);border-bottom:1px solid var(--border)">${t}</div>`).join('')}
+    </div>`;
+  }
+
+  if (plan.shopping && plan.shopping.length) {
+    html += `<div class="section" style="margin-top:0">
+      <div class="section-title">🛒 Need to buy</div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px">
+        ${plan.shopping.map(s=>`<span style="font-size:12px;padding:4px 10px;border-radius:20px;background:var(--goldp);color:#6a3a00;font-weight:700;border:1px solid #e0c060">${s}</span>`).join('')}
+      </div>
+    </div>`;
+  }
+
+  document.getElementById('planDays').innerHTML = html;
+  document.getElementById('outputWrap').className = 'output-wrap show';
+  document.getElementById('outputWrap').scrollIntoView({behavior:'smooth', block:'start'});
+  window._lastPlan = plan;
+}
+
+function copyPlan() {
+  if (!window._lastPlan) return;
+  const p = window._lastPlan;
+  let text = p.title + '\n' + p.theme + '\n\n';
+  (p.days||[]).forEach(d => {
+    text += d.day.toUpperCase() + '\n';
+    const b = d.brunch||{};
+    const din = d.dinner||{};
+    text += `  Brunch: ${b.kootu} · ${b.curry} · ${b.gravy}\n`;
+    if (b.note) text += `  → ${b.note}\n`;
+    text += `  Dinner: ${din.main}\n`;
+    if (din.note) text += `  → ${din.note}\n`;
+    if (d.warnings && d.warnings.length) text += `  ⚠ ${d.warnings.join(', ')}\n`;
+    text += '\n';
+  });
+  if (p.prepTips) text += 'PREP TIPS\n' + p.prepTips.map(t=>'• '+t).join('\n') + '\n\n';
+  if (p.shopping) text += 'SHOPPING\n' + p.shopping.map(s=>'• '+s).join('\n');
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.querySelector('.copy-btn');
+    btn.textContent = 'Copied!';
+    setTimeout(()=>btn.textContent='Copy as text',2000);
+  });
+}
+
+function showError(msg) {
+  const el = document.getElementById('errorBox');
+  el.textContent = msg;
+  el.className = 'error-box show';
+}
+
+// Init
+buildTagGroup(COMMON_VEG, 'commonVeg', selectedVeg);
+buildTagGroup(DALS, 'dalTags', selectedDals);
+buildTagGroup(SPROUTS, 'sproutTags', selectedSprouts);
+buildTagGroup(PANTRY, 'pantryTags', selectedPantry);
+buildTagGroup(TAMIL_SPICES, 'tamilSpices', selectedTamilSpices);
+buildTagGroup(EXTRA_SPICES, 'extraSpices', selectedExtraSpices);
+buildTagGroup(GOALS, 'goalTags', selectedGoals);
+
+// Pre-select standard Tamil spices
+TAMIL_SPICES.forEach(s => {
+  const el = document.getElementById('tamilSpices');
+  const btn = [...el.querySelectorAll('.tag')].find(b=>b.textContent===s);
+  if (btn) btn.className = 'tag on';
+});
+</script>
+</body>
+</html>
