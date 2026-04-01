@@ -14,7 +14,7 @@ html,body{font-family:'Work Sans',sans-serif;background:var(--bg);color:var(--in
 
 /* HERO */
 .hero{background:var(--green);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 24px;text-align:center;position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 20%,rgba(126,198,59,.12) 0%,transparent 60%),radial-gradient(ellipse at 70% 80%,rgba(212,69,12,.08) 0%,transparent 60%)}
+.hero::before{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 30% 20%,rgba(126,198,59,.12) 0%,transparent 60%),radial-gradient(ellipse at 70% 80%,rgba(212,69,12,.08) 0%,transparent 60%)}
 .hero-eyebrow{font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--lime);margin-bottom:16px;display:flex;align-items:center;gap:8px}
 .hero-eyebrow::before,.hero-eyebrow::after{content:'';flex:1;height:1px;background:rgba(126,198,59,.3);max-width:40px}
 .hero-logo{font-family:'Roca Two',serif;font-size:clamp(36px,10vw,56px);color:#fff;line-height:1.15;margin-bottom:14px}
@@ -132,7 +132,7 @@ html,body{font-family:'Work Sans',sans-serif;background:var(--bg);color:var(--in
     <div class="hero-logo">Kanji <em>&amp;</em> Kale</div>
     <div class="hero-sub">Evidence-based meal plans rooted in Tamil Brahmin cooking. Personalised for your family's size, health goals, and pantry.</div>
     <button class="hero-cta" onclick="startOnboarding()">Get started — it's free</button>
-    <div class="hero-login" onclick="goFamily()">Already set up? Family login →</div>
+    <a class="hero-login" href="family.html">Already set up? Family login →</a>
   </div>
 
   <!-- PILLARS -->
@@ -224,9 +224,7 @@ function startOnboarding() {
   renderStep();
 }
 
-function goFamily() {
-  window.location.href = 'family.html';
-}
+function goFamily() { window.location.href = 'family.html'; }
 
 function renderStepBar() {
   const bar = document.getElementById('stepBar');
@@ -503,11 +501,21 @@ function showEditProfile() {
 }
 
 // ── INIT ────────────────────────────────────────────────────────
-if (loadProfile()) {
-  showApp();
-} else {
-  document.getElementById('landingWrap').style.display = 'block';
-}
+document.addEventListener('DOMContentLoaded', function() {
+  try {
+    if (loadProfile()) {
+      showApp();
+    } else {
+      var lw = document.getElementById('landingWrap');
+      if (lw) lw.style.display = 'block';
+    }
+  } catch(e) {
+    // Fallback: just show landing
+    var lw = document.getElementById('landingWrap');
+    if (lw) lw.style.display = 'block';
+    console.error('Init error:', e);
+  }
+});
 </script>
 </body>
 </html>
