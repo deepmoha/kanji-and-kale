@@ -218,6 +218,18 @@ body{font-family:'Work Sans',sans-serif;background:var(--bg);color:var(--ink);fo
 .avoid-name{font-size:14px;font-weight:600;color:var(--ink);margin-bottom:2px}
 .avoid-why{font-size:12px;color:#5a2a20;line-height:1.55}
 
+
+/* SERVING SCALER */
+.scaler-bar{display:flex;align-items:center;gap:10px;padding:12px 18px;background:#f5f0e8;border-bottom:1.5px solid var(--border);flex-wrap:wrap}
+.scaler-lbl{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);flex-shrink:0}
+.scaler-btns{display:flex;gap:6px;flex-wrap:wrap;flex:1}
+.scaler-btn{padding:5px 12px;border-radius:20px;border:1.5px solid var(--border);background:transparent;color:var(--mu);font-family:'Work Sans',sans-serif;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap}
+.scaler-btn.active{background:#1c3a1c;color:#fff;border-color:#1c3a1c}
+.scaler-custom{display:flex;align-items:center;gap:6px;margin-left:auto}
+.scaler-custom input{width:52px;padding:5px 8px;border:1.5px solid var(--border);border-radius:8px;font-family:'DM Mono',monospace;font-size:13px;text-align:center;background:#fff;color:var(--ink)}
+.scaler-custom span{font-size:12px;color:var(--mu)}
+.scaled-amt{color:#1c3a1c;font-weight:700}
+
 @media(min-width:480px){.recipe-grid{grid-template-columns:repeat(3,1fr)}#pageIndex{max-width:520px;margin:0 auto}}
 </style>
 </head>
@@ -283,8 +295,8 @@ body{font-family:'Work Sans',sans-serif;background:var(--bg);color:var(--ink);fo
   <button class="nav-item active"><span class="ni">🃏</span>Recipes</button>
   <a class="nav-item" href="shopping.html"><span class="ni">🛒</span>Shop</a>
   <a class="nav-item" href="sprouting.html"><span class="ni">🌱</span>Sprouts</a>
-  <button class="nav-item"><span class="ni">⋯</span>More</button>
-</nav>
+  <a class="nav-item" href="planner.html"><span class="ni">📅</span>Plan</a>
+<//nav>
 
 <script>
 const F = {
@@ -2066,6 +2078,71 @@ let cmCurrentStep=0,cmSteps=[];
 let timerInterval=null,timerSeconds=0,timerTotal=0,timerRunning=false;
 let wakeLock=null;
 
+
+let currentScale = 1;
+let baseServes = 4;
+
+function scaleAmount(orig, factor) {
+  // Parse the original amount string and scale it
+  // Handles: '120g', '2 tbsp', '¼ tsp', '1½ cups', '500g', numbers
+  const fracs = {'¼':0.25,'½':0.5,'¾':0.75,'⅓':0.333,'⅔':0.667,'⅛':0.125,'1½':1.5,'2½':2.5,'1¼':1.25,'1¾':1.75,'3½':3.5};
+  let s = orig.trim();
+  // Replace unicode fractions
+  for (const [frac, val] of Object.entries(fracs)) {
+    s = s.replace(frac, '~FRAC~' + val + '~');
+  }
+  // Extract leading number
+  const m = s.match(/^~FRAC~([0-9.]+)~(.*)$/) || s.match(/^([0-9]+(?:\.[0-9]+)?)(.*)$/);
+  if (!m) return orig; // can't parse, return as-is
+  let num = parseFloat(m[1]);
+  const rest = m[2] || '';
+  const scaled = num * factor;
+  // Format nicely
+  let fmt;
+  if (scaled >= 1000 && rest.toLowerCase().includes('g')) {
+    fmt = (scaled/1000).toFixed(1).replace(/\.0$/,'') + 'kg';
+    return fmt + rest.replace(/g/,'').trim();
+  }
+  if (scaled === Math.round(scaled)) fmt = Math.round(scaled).toString();
+  else if (scaled < 1) {
+    // Try to express as fraction
+    const fmts = [[0.25,'¼'],[0.5,'½'],[0.75,'¾'],[0.33,'⅓'],[0.67,'⅔'],[0.125,'⅛']];
+    const close = fmts.find(([v]) => Math.abs(scaled - v) < 0.04);
+    fmt = close ? close[1] : scaled.toFixed(1);
+  } else {
+    fmt = scaled.toFixed(1).replace(/\.0$/,'');
+  }
+  return fmt + rest;
+}
+
+function setScale(factor, btn) {
+  currentScale = factor;
+  document.querySelectorAll('.scaler-btn').forEach(b=>b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  const ci = document.getElementById('customServes');
+  if (ci) ci.value = Math.round(baseServes * factor);
+  // Re-render all ingredient amounts
+  document.querySelectorAll('.ing-amount[data-base]').forEach(el => {
+    el.innerHTML = '<span class="scaled-amt">' + scaleAmount(el.dataset.base, factor) + '</span>';
+  });
+  // Update serves display
+  const sd = document.getElementById('servesDisplay');
+  if (sd) sd.textContent = 'Serves ' + Math.round(baseServes * factor);
+}
+
+function customServes(val) {
+  const n = parseInt(val);
+  if (!n || n < 1 || n > 50) return;
+  const factor = n / baseServes;
+  document.querySelectorAll('.scaler-btn').forEach(b=>b.classList.remove('active'));
+  currentScale = factor;
+  document.querySelectorAll('.ing-amount[data-base]').forEach(el => {
+    el.innerHTML = '<span class="scaled-amt">' + scaleAmount(el.dataset.base, factor) + '</span>';
+  });
+  const sd = document.getElementById('servesDisplay');
+  if (sd) sd.textContent = 'Serves ' + n;
+}
+
 function buildFilterRow(){
   const c=document.getElementById('filterRow');
   c.innerHTML=FILTERS.map(f=>`<button class="filter-pill ${filterCat===f.id?'active '+f.cls:''}" id="fp-${f.id}" onclick="setFilter('${f.id}')">${f.label}</button>`).join('');
@@ -2111,7 +2188,8 @@ function renderGrid(recipes){
 function openRecipe(id){
   const r=RECIPES.find(x=>x.id===id);
   if(!r)return;
-  currentRecipeId=id;beginnerMode=false;
+  currentRecipeId=id;beginnerMode=false;currentScale=1;
+  baseServes=parseInt(r.serves)||4;
   const det=document.getElementById('pageDetail');
   det.innerHTML=`
     <div class="detail-hero">
@@ -2120,7 +2198,20 @@ function openRecipe(id){
       <div class="dh-en">${r.en}</div>
       <div class="dh-meta">
         <div class="dh-meta-item">⏱ <strong>${r.time}</strong></div>
-        <div class="dh-meta-item">👨‍👩‍👧‍👦 Serves <strong>${r.serves}</strong></div>
+        <div class="dh-meta-item">👨‍👩‍👧‍👦 <span id="servesDisplay">Serves ${r.serves}</span></div>
+      </div>
+    </div>
+    <div class="scaler-bar">
+      <span class="scaler-lbl">Portions</span>
+      <div class="scaler-btns">
+        <button class="scaler-btn active" onclick="setScale(1,this)">×1 — ${r.serves} serves</button>
+        <button class="scaler-btn" onclick="setScale(1.5,this)">×1.5 — ${Math.round(parseFloat(r.serves)*1.5)} serves</button>
+        <button class="scaler-btn" onclick="setScale(2,this)">×2 — ${Math.round(parseFloat(r.serves)*2)} serves</button>
+        <button class="scaler-btn" onclick="setScale(3,this)">×3 — ${Math.round(parseFloat(r.serves)*3)} serves</button>
+      </div>
+      <div class="scaler-custom">
+        <input type="number" id="customServes" min="1" max="50" value="${r.serves}" oninput="customServes(this.value)" style="width:52px;padding:5px 8px;border:1.5px solid var(--border);border-radius:8px;font-family:'DM Mono',monospace;font-size:13px;text-align:center;background:#fff;color:var(--ink)">
+        <span>serves</span>
       </div>
     </div>
     <div class="nut-panel">
@@ -2163,7 +2254,7 @@ function openRecipe(id){
       <table class="ing-table">
         ${r.ing.map(i=>i.a.includes('—')?`<tr><td colspan="2" style="padding:12px 0 4px;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mu)">${i.a}</td></tr>`:`
           <tr class="ing-row">
-            <td class="ing-amount">${i.a}</td>
+            <td class="ing-amount" data-base="${i.a}">${i.a}</td>
             <td><div class="ing-name">${i.n}</div>${i.note&&!i.a.includes('—')?`<div class="ing-note">${i.note}</div>`:''}</td>
           </tr>`).join('')}
       </table>
