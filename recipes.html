@@ -291,7 +291,7 @@ body{font-family:'Work Sans',sans-serif;background:var(--bg);color:var(--ink);fo
 </div>
 
 <nav class="bottomnav">
-  <a class="nav-item" href="index.html"><span class="ni">🏠</span>Today</a>
+  <a class="nav-item" href="family.html"><span class="ni">🏠</span>Today</a>
   <button class="nav-item active"><span class="ni">🃏</span>Recipes</button>
   <a class="nav-item" href="shopping.html"><span class="ni">🛒</span>Shop</a>
   <a class="nav-item" href="sprouting.html"><span class="ni">🌱</span>Sprouts</a>
@@ -2050,6 +2050,51 @@ const RECIPES = [
  science:'The nutritional value of the mixed vegetable poriyal depends entirely on which vegetables are chosen. The guiding principle is colour diversity — each colour class represents a different family of phytonutrients. Orange/yellow (carrot, corn, pepper): carotenoids. Green cruciferous (broccoli, cabbage, cauliflower): glucosinolates. Green legumes (peas, beans): folate and iron. The combined fibre content of a diverse mixed vegetable poriyal (5g per serving) provides bile acid binding comparable to the individual curries. For kids biryani nights specifically, adding this poriyal shifts the meal from high-glycaemic rice-dominant to a more balanced plate. The resistant starch from cooled rice plus the vegetable fibre together reduce the post-meal glucose response substantially compared to biryani alone.',
  begNotes:{'My vegetables are all cooking at different rates':'You added them all at the same time. The hard rule is: harder vegetables first, softer last. Carrots need 4 extra minutes that peas do not.','The curry looks waterlogged':'Vegetables released moisture. Turn heat to high and cook uncovered for an extra 3 minutes — the moisture will evaporate.','Can I use any vegetable?':'Almost. Avoid beet (colours everything purple) and potato (needs more time and a separate pre-cook). Everything else in the Tamil vegetable repertoire works in this format.','Good combinations for kids':'Carrot + peas + corn + pepper — sweet, colourful, mild. Add a handful of paneer cubes if they want protein and it is a paneer day.'}
 },
+
+,
+// ─── DRINKS & WELLNESS ─────────────────────────────────
+{id:'drink-mood-chai',cat:'special',en:'Golden Mood Chai',ta:'தங்கம் மனநிலை சாய்',
+ time:'10 min',serves:'1',
+ appears:['When tired or low mood','Evening wind-down','Cortisol reset'],
+ nut:{c:12,p:4,f:2,kcal:78,fibre:1},
+ fat:{total:2,sat:0.2,mufa:0.5,pufa:0.8},chop40:false,
+ ing:[
+  {a:'1 cup',n:'Soy oat milk (or soy milk)',note:'Soy milk preferred — the GOS prebiotics feed Bifidobacterium which produces GABA'},
+  {a:'½ cup',n:'Water'},
+  {a:'¾ tsp',n:'Tea powder (CTC or dust)',note:'CTC dust extracts faster and stronger than leaf tea — better for chai'},
+  {a:'1 thumb',n:'Fresh ginger, sliced thin',note:'Thin slices extract more gingerols than thick'},
+  {a:'1 tsp',n:'Cinnamon powder',note:'Ceylon cinnamon if available — highest cinnamaldehyde content'},
+  {a:'3',n:'Whole cloves'},
+  {a:'2',n:'Green cardamom pods, lightly crushed'},
+  {a:'1 pinch',n:'Black pepper, cracked (3-4 cracks only)',note:'Not for heat — piperine doubles cinnamon compound absorption'},
+  {a:'1 tsp',n:'Raw honey or jaggery',note:'Add OFF HEAT only — heat destroys honey enzymes and raises GI'},
+  {a:'¼ tsp',n:'Ashwagandha powder (optional)',note:'Add with the spices — same cortisol effect as 20 minutes of meditation within 45 minutes'},
+ ],
+ steps:[
+  {t:'Put water in a small saucepan. Add ginger slices, cloves, cardamom, and cracked pepper. Bring to a gentle simmer on medium heat.',flags:['crit'],note:'Starting spices in cold water and bringing up together extracts far more compound than adding to boiling water. The slow heat-up is the extraction.'},
+  {t:'Simmer the spices for 3 full minutes — the water turns fragrant and slightly golden.',timer:180,note:'Do not rush this. The clove eugenol and cardamom cineole need time to fully release. You will smell when it is ready.'},
+  {t:'Add tea powder. Stir once. Simmer exactly 90 seconds — no longer.',timer:90,flags:['crit'],note:'Over-boiling tea creates harsh tannins that taste bitter and cancel some of the mood-lifting L-theanine. 90 seconds is the window.'},
+  {t:'Pour in the soy milk. Add cinnamon powder. Stir well. Bring just to the edge of a boil — watch for the first bubble rising — then immediately reduce to lowest heat.',flags:['crit'],note:'The cinnamon blooms in milk differently than water. You will see the colour deepen to amber-gold. This is correct.'},
+  {t:'If using ashwagandha, add it now. Keep on lowest heat 2 minutes.',timer:120},
+  {t:'Turn off heat. Wait 30 seconds.',timer:30,flags:['crit']},
+  {t:'Stir in honey or jaggery off heat. Taste — adjust sweetness. Strain through a fine strainer into your favourite mug.',note:'The 30-second wait drops the temperature enough to preserve honey enzymes and not spike GI. Jaggery is fine to add earlier but honey must be off heat.'},
+  {t:'Sit somewhere comfortable. Both hands around the mug. No phone for at least 5 minutes. This step is not optional.',flags:['crit'],note:'The physical warmth of the mug activates vagus nerve receptors in the palms that directly lower heart rate and cortisol. The sitting still is part of the medicine.'},
+ ],
+ goesWith:[
+  {n:'Nothing else',cat:'special',why:'This is a solo restorative. Eating alongside it reduces the bioavailability of several mood compounds — the cinnamon and ginger work better with a quiet stomach. Drink it alone, 30 minutes before or after food.',tags:['Solo drink','Best empty stomach','Cortisol reset']},
+ ],
+ avoidWith:[
+  {n:'Iron supplements within 2 hours',why:'Tea tannins bind iron aggressively — even 90 seconds of tea in this chai is enough to block supplemental iron absorption. Take iron at least 2 hours away from this.',sev:'high'},
+  {n:'Saffron on the same occasion',why:'Saffron works on a slow, cumulative timescale via safranal and crocin. This chai works acutely via gingerols, cinnamaldehyde, and GABA. They address different mechanisms at different speeds and milk proteins reduce saffron bioavailability. Saffron belongs in Friday biryani, this chai belongs in the moment you are tired.',sev:'med'},
+  {n:'Adding too much tea — more than ¾ tsp',why:'More tea powder means more caffeine and more tannins. The L-theanine to caffeine ratio that makes this calming rather than stimulating depends on the small amount of tea relative to the milk and spices. More tea makes it a stimulant drink, not a restorative one.',sev:'med'},
+ ],
+ science:'Ginger (Zingiber officinale) raises serotonin and dopamine levels in the brain — this is one of the most replicated findings in spice research, demonstrated in multiple animal and human studies. Gingerols also inhibit prostaglandin synthesis, reducing the inflammatory fatigue compounds that accumulate during mentally intensive days. Cinnamon cinnamaldehyde has direct mood-modulating effects on the limbic system and stabilises blood glucose — mental fatigue after intense cognitive work is partially a blood glucose dip, and cinnamon addresses it within one cup. The GOS prebiotics in soy milk selectively feed Bifidobacterium, which produces GABA — the neurotransmitter that signals the nervous system to step down from high-alert mode. Cardamom cineole and clove eugenol are among the highest ORAC compounds in any common spice and both lower cortisol markers specifically in studies involving mental fatigue. Ashwagandha withanolides, if added, have demonstrated cortisol reduction equivalent to the effect of 20 minutes of meditation within 45 minutes of consumption in randomised controlled trials.',
+ begNotes:{
+  'Can I use milk instead of soy milk':'Yes but you lose the GABA-producing GOS prebiotic effect. Oat milk or almond milk work for flavour but neither has the therapeutic GOS content of soy milk.',
+  'I do not have fresh ginger':'Dried ginger powder works at ½ tsp — different compound profile (more shogaols, less gingerols) but still effective for mood. Add with the spices at the start.',
+  'Do I need all the spices':'Ginger and cinnamon are the core. Everything else adds depth and compounds. The minimum effective version is ginger + cinnamon + soy milk + tea. Still very good.',
+ }
+}
 
 ];
 
