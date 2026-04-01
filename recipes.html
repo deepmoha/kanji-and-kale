@@ -93,17 +93,17 @@ body{font-family:'Work Sans',sans-serif;background:var(--bg);color:var(--ink);fo
 .appears-in{display:flex;gap:6px;flex-wrap:wrap;padding:12px 18px;border-bottom:1.5px solid var(--border);background:#f0f7ec}
 .ai-lbl{font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--mu);width:100%;margin-bottom:3px}
 .ai-chip{font-size:12px;background:#fff;border:1.5px solid var(--border);color:var(--mu);padding:4px 10px;border-radius:8px}
-.nut-panel{padding:16px 18px;border-bottom:1.5px solid var(--border);background:#1c3a1c}
-.np-title{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);margin-bottom:12px}
+.nut-panel{padding:16px 18px;border-bottom:1.5px solid var(--border);background:#f0f7ec}
+.np-title{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#2a5a2a;margin-bottom:12px}
 .np-main{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px}
 .npm-item{text-align:center}
-.npm-val{font-family:'DM Mono',monospace;font-size:22px;font-weight:500;color:var(--cream);line-height:1}
-.npm-unit{font-size:10px;color:var(--mu);margin-top:1px}
-.npm-lbl{font-size:10px;color:var(--mu);margin-top:3px;letter-spacing:.04em;text-transform:uppercase}
-.np-fat{background:rgba(255,255,255,.12);border-radius:10px;padding:10px 12px}
-.np-fat-row{display:flex;justify-content:space-between;font-size:13px;color:var(--mu);padding:2px 0}
-.np-fat-row span:last-child{color:var(--ink);font-weight:700;font-family:'DM Mono',monospace}
-.np-fat-lbl{font-size:11px;font-weight:700;color:var(--mu);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
+.npm-val{font-family:'DM Mono',monospace;font-size:22px;font-weight:500;color:#1a1a1a;line-height:1}
+.npm-unit{font-size:10px;color:#5a6a58;margin-top:1px}
+.npm-lbl{font-size:10px;color:#5a6a58;margin-top:3px;letter-spacing:.04em;text-transform:uppercase}
+.np-fat{background:#fff;border:1px solid #c8e0b8;border-radius:10px;padding:10px 12px}
+.np-fat-row{display:flex;justify-content:space-between;font-size:13px;color:#3a5a3a;padding:2px 0}
+.np-fat-row span:last-child{color:#1a1a1a;font-weight:700;font-family:'DM Mono',monospace}
+.np-fat-lbl{font-size:11px;font-weight:700;color:#2a5a2a;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
 .det-section{padding:16px 18px;border-bottom:1.5px solid var(--border);background:#faf7f2}
 .det-section-title{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:8px}
 .det-section-title.gold{color:var(--gold)}
@@ -2123,6 +2123,22 @@ function openRecipe(id){
         <div class="dh-meta-item">👨‍👩‍👧‍👦 Serves <strong>${r.serves}</strong></div>
       </div>
     </div>
+    <div class="nut-panel">
+      <div class="np-title">Nutrition per serving · Serves ${r.serves}</div>
+      <div class="np-main" style="grid-template-columns:repeat(5,1fr)">
+        <div class="npm-item"><div class="npm-val">${r.nut.c}</div><div class="npm-unit">g</div><div class="npm-lbl">Net carbs</div></div>
+        <div class="npm-item"><div class="npm-val">${r.nut.p}</div><div class="npm-unit">g</div><div class="npm-lbl">Protein</div></div>
+        <div class="npm-item"><div class="npm-val">${r.fat.total}</div><div class="npm-unit">g</div><div class="npm-lbl">Fat</div></div>
+        <div class="npm-item"><div class="npm-val">${r.nut.fibre}</div><div class="npm-unit">g</div><div class="npm-lbl">Fibre</div></div>
+        <div class="npm-item"><div class="npm-val">${r.nut.kcal}</div><div class="npm-unit">kcal</div><div class="npm-lbl">Calories</div></div>
+      </div>
+      <div class="np-fat">
+        <div class="np-fat-lbl">Fat breakdown · ${r.fat.total}g total</div>
+        <div class="np-fat-row"><span>Saturated</span><span>${r.fat.sat}g</span></div>
+        <div class="np-fat-row"><span>Monounsaturated (MUFA)</span><span>${r.fat.mufa}g</span></div>
+        <div class="np-fat-row"><span>Polyunsaturated (PUFA)</span><span>${r.fat.pufa}g</span></div>
+      </div>
+    </div>
     <div class="appears-in">
       <div class="ai-lbl">When to make this</div>
       ${r.appears.map(a=>`<span class="ai-chip">${a}</span>`).join('')}
@@ -2138,22 +2154,6 @@ function openRecipe(id){
         </div>
       </div>`).join('')}
     </div>`:''}
-    <div class="nut-panel">
-      <div class="np-title">Nutrition per serving</div>
-      <div class="np-main" style="grid-template-columns:repeat(5,1fr)">
-        <div class="npm-item"><div class="npm-val">${r.nut.c}</div><div class="npm-unit">g</div><div class="npm-lbl">Net carbs</div></div>
-        <div class="npm-item"><div class="npm-val">${r.nut.p}</div><div class="npm-unit">g</div><div class="npm-lbl">Protein</div></div>
-        <div class="npm-item"><div class="npm-val">${r.fat.total}</div><div class="npm-unit">g</div><div class="npm-lbl">Fat</div></div>
-        <div class="npm-item"><div class="npm-val">${r.nut.fibre}</div><div class="npm-unit">g</div><div class="npm-lbl">Fibre</div></div>
-        <div class="npm-item"><div class="npm-val">${r.nut.kcal}</div><div class="npm-unit">kcal</div><div class="npm-lbl">Calories</div></div>
-      </div>
-      <div class="np-fat">
-        <div class="np-fat-lbl">Fat breakdown (${r.fat.total}g total)</div>
-        <div class="np-fat-row"><span>Saturated fat</span><span>${r.fat.sat}g</span></div>
-        <div class="np-fat-row"><span>Monounsaturated (MUFA)</span><span>${r.fat.mufa}g</span></div>
-        <div class="np-fat-row"><span>Polyunsaturated (PUFA)</span><span>${r.fat.pufa}g</span></div>
-      </div>
-    </div>
     ${renderAvoid(r)}
     <div class="det-section">
       <div class="det-section-title gold">🧪 Ingredients</div>
@@ -2167,7 +2167,7 @@ function openRecipe(id){
             <td><div class="ing-name">${i.n}</div>${i.note&&!i.a.includes('—')?`<div class="ing-note">${i.note}</div>`:''}</td>
           </tr>`).join('')}
       </table>
-      ${r.goesWith&&r.goesWith.length?`<div style="margin-top:12px"><div style="font-size:10px;color:var(--mu);font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px">Goes well with</div><div class="goes-well">${r.goesWith.map(g=>`<span class="gw-chip">${g}</span>`).join('')}</div></div>`:''}
+      ${r.goesWith&&r.goesWith.length?`<div style="margin-top:12px"><div style="font-size:10px;color:var(--mu);font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px">Goes well with</div><div class="goes-well">${r.goesWith.map(g=>`<span class="gw-chip">${g.n}</span>`).join('')}</div></div>`:''}
     </div>
     <div class="det-section">
       <div class="det-section-title green">👨‍🍳 Method</div>
