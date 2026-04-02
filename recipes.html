@@ -198,6 +198,10 @@ body{font-family:'Work Sans',sans-serif;background:var(--bg);color:var(--ink);fo
 .pair-badge.gravy{background:var(--greenp);color:#1e5a1e}
 .pair-badge.curry{background:var(--terrap);color:var(--terra)}
 .pair-badge.kootu{background:var(--goldp);color:#8a5a00}
+.pair-badge.base{background:#eef2fc;color:#2a5a9a}
+.pair-badge.special{background:var(--saffronp);color:#7a4800}
+.pair-badge.salad{background:#e0f8f0;color:#0a5a3a}
+.pair-badge.kids{background:var(--pup);color:var(--pu)}
 .pair-body{flex:1;min-width:0}
 .pair-name{font-size:14px;font-weight:600;color:var(--ink);margin-bottom:3px}
 .pair-why{font-size:12px;color:#2a4a28;line-height:1.55}
@@ -2508,18 +2512,7 @@ function openRecipe(id){
       <div class="ai-lbl">When to make this</div>
       ${r.appears.map(a=>`<span class="ai-chip">${a}</span>`).join('')}
     </div>
-    ${r.goesWith&&r.goesWith.length?`<div class="pairs-section">
-      <div class="pairs-title">🤝 Pairs Well With — Nutritional Synergies</div>
-      ${r.goesWith.map(p=>`<div class="pair-item">
-        <span class="pair-badge ${p.cat}">${p.cat}</span>
-        <div class="pair-body">
-          <div class="pair-name">${p.n}</div>
-          <div class="pair-why">${p.why}</div>
-          <div class="pair-icons">${p.tags.map(t=>`<span class="pair-icon">${t}</span>`).join('')}</div>
-        </div>
-      </div>`).join('')}
-    </div>`:''}
-    ${renderAvoid(r)}
+    ${renderPairs(r)} ${renderAvoid(r)}
     <div class="det-section">
       <div class="det-section-title gold">🧪 Ingredients</div>
       ${r.cat==='family'?`<div class="family-note"><div class="family-note-lbl">Family Recipe</div><div class="family-note-txt">Original family recipe preserved as written. Health additions (amla off heat, kalonji in tadka, flaxseed off heat) have been added. Core technique and flavour profile unchanged.</div></div>`:''}
@@ -2541,7 +2534,7 @@ function openRecipe(id){
         <div class="step-item">
           <div class="step-num ${s.flags&&s.flags.includes('crit')?'critical':''}">${i+1}</div>
           <div class="step-body">
-            <div class="step-text">${s.t}</div>
+            <div class="step-text">${s.t.replace(/\\n/g,"<br>").replace(/\n/g,"<br>")}</div>
             ${s.timer?`<button class="step-timer-btn" onclick="quickTimer(${s.timer},event)">⏱ Set ${fmtTime(s.timer)} timer</button>`:''}
             ${s.note?`<div class="chef-note"><div class="chef-note-lbl">Chef's note</div><div class="chef-note-txt">${s.note}</div></div>`:''}
           </div>
