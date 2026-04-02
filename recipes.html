@@ -291,7 +291,7 @@ body{font-family:'Work Sans',sans-serif;background:var(--bg);color:var(--ink);fo
 </div>
 
 <nav class="bottomnav">
-  <a class="nav-item" href="family.html"><span class="ni">🏠</span>Today</a>
+  <a class="nav-item" href="kitchen-dm2025.html"><span class="ni">🏠</span>Today</a>
   <button class="nav-item active"><span class="ni">🃏</span>Recipes</button>
   <a class="nav-item" href="shopping.html"><span class="ni">🛒</span>Shop</a>
   <a class="nav-item" href="sprouting.html"><span class="ni">🌱</span>Sprouts</a>
@@ -2094,6 +2094,235 @@ const RECIPES = [
   'I do not have fresh ginger':'Dried ginger powder works at ½ tsp — different compound profile (more shogaols, less gingerols) but still effective for mood. Add with the spices at the start.',
   'Do I need all the spices':'Ginger and cinnamon are the core. Everything else adds depth and compounds. The minimum effective version is ginger + cinnamon + soy milk + tea. Still very good.',
  }
+}
+
+,
+// ─── BASE TECHNIQUES (EXTENDED) ────────────────────────────
+// ─── BASE TECHNIQUES (new batch) ─────────────────────────────────
+
+{id:'base-caramelised-onion',cat:'base',en:'True Caramelised Onion',ta:'உண்மையான வெங்காய கேரமல்',
+ time:'45–60 min',serves:'Makes enough for 4–6 dishes',
+ appears:['Biryani base','Gravy deepener','Dal tadka','Pasta sauce','Pizza topping','Freeze for the week'],
+ nut:{c:12,p:1,f:4,kcal:86,fibre:2},
+ fat:{total:4,sat:0.5,mufa:2.9,pufa:0.4},chop40:false,
+ ing:[
+  {a:'1kg',n:'Onions (yellow or white)',note:'About 6 large onions. They reduce to roughly ⅙ of their raw volume.'},
+  {a:'2 tbsp',n:'Avocado oil or neutral oil'},
+  {a:'¾ tsp',n:'Salt',note:'Add at the start — draws out moisture and speeds early cooking'},
+  {a:'1 tsp',n:'Jaggery or sugar (optional)',note:'Speeds caramelisation slightly and deepens colour — not needed but useful'},
+  {a:'2 tbsp',n:'Water (as needed)',note:'For deglazing the fond — the brown bits stuck to the pan are flavour'},
+ ],
+ steps:[
+  {t:'Slice onions thin and uniform — 3mm half-moons. Irregular thickness means some pieces burn while others are still raw.',flags:['crit'],note:'Use a mandoline if you have one. Uniform slices are everything. Thick pieces take twice as long and never colour evenly.'},
+  {t:'Heat a wide, heavy-bottomed pan — cast iron or stainless steel — on medium heat for 90 seconds. Add oil. Swirl to coat.',timer:90,flags:['crit'],note:'The pan must be properly hot before onions go in. Cold pan + oil + onions = steaming, not frying. You want the onions to sizzle immediately on contact.'},
+  {t:'Add all the onions. Add salt. Toss to coat. They will completely fill the pan — this is correct.',flags:['crit'],note:'The volume looks alarming. A full kilogram of onions piled high. Within 8 minutes they will have collapsed to half. Within 20 minutes, a quarter. This is normal and expected.'},
+  {t:'Cook on MEDIUM heat. Stir every 3–4 minutes. Do not stir more often — the contact time with the hot pan is what builds colour.',timer:480,note:'Medium heat is the discipline here. High heat burns the outside while the inside steams. You want slow, even browning from the inside out.'},
+  {t:'At 15 minutes: onions are limp, golden, and fragrant. This is NOT done. This is stage one. Continue.',timer:900,flags:['crit'],note:'Most recipes call onions done here. They are not. This is caramelised onion impostor stage. Sweet but not deep, golden but not amber. Keep going.'},
+  {t:'At 25 minutes: onions are amber, significantly reduced, very fragrant. Getting closer. Stir every 2 minutes now.',timer:600,note:'The sugars are beginning to polymerise. You will smell a complex sweetness — almost like toffee meeting soup. This is the Maillard reaction and the caramelisation happening simultaneously.'},
+  {t:'At 35 minutes: onions are deep amber to brown, jammy, significantly reduced. If the pan looks dry or onions stick, add 1 tbsp water and scrape up the fond — those stuck bits are pure flavour.',timer:600,flags:['crit'],note:'The fond (stuck brown bits) is the most flavourful thing in the pan. Water deglazes it and it incorporates back into the onions. Never discard it, never scrape it off and discard.'},
+  {t:'At 45–60 minutes: deep mahogany-brown, almost paste-like, intensely sweet and savoury. Taste one. It should taste like the best part of a French onion soup.',timer:900,flags:['crit'],note:'Real caramelised onion is almost unrecognisable from raw onion. The bitterness is completely gone. The pungency is gone. What remains is pure concentrated sweetness with deep savoury depth from the amino acid-sugar Maillard compounds.'},
+  {t:'Cool completely. Store in a glass jar in the refrigerator up to 2 weeks. Freeze in tablespoon portions in an ice cube tray — pop out and use directly.',note:'Frozen caramelised onion cubes are one of the most useful things in any kitchen. Drop one into dal, sambar, gravy, roti dough, scrambled eggs, pasta sauce. Instant depth.'},
+ ],
+ goesWith:[
+  {n:"Kids' Saffron Brown Rice Biryani",cat:'special',why:'Properly caramelised onion is what separates restaurant biryani from home biryani. The onions should be cooked to this full depth before any rice or spice goes in. Shortcutting the onion step is why most home biryani tastes flat.',tags:['Biryani base','Depth+','Maillard']},
+  {n:'Murungakkai Sambar',cat:'gravy',why:'Adding 2 tbsp caramelised onion to sambar after tempering — off heat — adds a dimension of sweetness and body that no amount of additional sambar powder can replicate.',tags:['Depth+','Body+','Umami']},
+ ],
+ avoidWith:[
+  {n:'High heat at any stage',why:'High heat burns onion exteriors while the insides steam. You get bitter, spotted, unevenly cooked onion that tastes harsh rather than sweet. Medium heat throughout is non-negotiable.',sev:'high'},
+  {n:'Rushing with a lid',why:'Covering the pan traps steam and poaches the onions rather than frying them. They turn soft and pale without ever developing colour or flavour concentration. Never cover caramelising onions.',sev:'high'},
+  {n:'Confusing golden onion (15 min) with caramelised onion (45 min)',why:'This is the most common mistake in home cooking globally. Golden fried onion is useful but it is a different ingredient. Real caramelised onion requires 45–60 minutes of patient medium-heat cooking.',sev:'med'},
+ ],
+ science:'Onion caramelisation involves two simultaneous reactions: caramelisation of fructose and glucose (begins at 110°C) and Maillard reaction between amino acids and reducing sugars (begins at 140°C). Together they produce hundreds of flavour compounds including furanones, pyrazines, and thiosulfinates — the same compound family responsible for the flavour of coffee, roasted meat, and baked bread. The deep amber colour comes from melanoidins — high-molecular-weight brown polymers with demonstrated antioxidant activity. Quercetin concentration in onions increases with caramelisation as cell walls break down and release bound quercetin-glucosides. Caramelised onion contains approximately 4× the quercetin per gram compared to raw onion.',
+ begNotes:{
+  'My onions are burning on the edges but pale in the middle':'Your pan is too hot or too thin. Cast iron distributes heat most evenly. Reduce heat and add a splash of water.','How do I know they are truly done':'Taste one. If it is still slightly sharp or pungent, continue. True caramelised onion should be purely sweet with no bite whatsoever — the sulphur compounds that cause sharpness fully break down only past the 35-minute mark.','Can I speed this up':'No. You can use a wider pan (more surface area helps) but you cannot speed the chemistry. Anyone claiming caramelised onion in 10 minutes is producing golden fried onion, which is a different and lesser ingredient.'}
+},
+
+{id:'base-deglaze',cat:'base',en:'Deglazing — The Technique That Rescues Flavour',ta:'தவா சாற்றை திரும்பப் பெறுதல்',
+ time:'5 min (applied to any dish)',serves:'Any quantity',
+ appears:['After any high-heat sauté','After caramelising onions','After searing vegetables','Finishing any gravy or curry'],
+ nut:{c:1,p:0,f:0,kcal:8,fibre:0},
+ fat:{total:0,sat:0,mufa:0,pufa:0},chop40:false,
+ ing:[
+  {a:'As needed',n:'Liquid — water, tamarind water, dal cooking water, tomato juice, or stock',note:'The choice of liquid defines the final flavour. Dal water adds umami. Tamarind adds sourness. Plain water is neutral and correct when you do not want to add flavour.'},
+  {a:'1 tbsp',n:'Minimum liquid to start — add more as needed'},
+ ],
+ steps:[
+  {t:'Recognise the fond. After cooking onions, searing vegetables, or making any high-heat tadka, look at the pan bottom. You will see brown patches stuck firmly to the surface — sometimes dark brown, almost black at the edges. This is the fond. Do not be alarmed.',flags:['crit'],note:'The fond (from French "fonds de cuisine" — foundation of cooking) is the single most flavourful thing in the pan. It is caramelised proteins and sugars from the food. In Indian cooking this is sometimes called the "khurcha" — the stuck bits.'},
+  {t:'With the pan STILL HOT on medium-high heat, pour your chosen liquid directly into the pan.',flags:['crit'],note:'The liquid must hit a hot pan. The temperature contrast causes an immediate violent sizzle — this is correct and important. The steam and agitation physically lifts the fond from the pan surface.'},
+  {t:'Immediately use a flat wooden spoon or spatula to scrape the pan bottom firmly — moving in straight lines across the entire surface.',timer:30,flags:['crit'],note:'Scrape with purpose. The fond releases easily once the liquid hits it. Work quickly while the pan is hot. Every brown bit you lift off the pan and dissolve into the liquid is concentrated flavour.'},
+  {t:'The liquid will turn brown, fragrant, and slightly thick within 30–60 seconds as the fond dissolves into it. This is your flavour base.',timer:60},
+  {t:'Add this deglazed liquid immediately back into your dish. If making gravy, add tamarind water and deglaze. If finishing a curry, add dal water. If making biryani, add a little water and scrape before adding the next ingredient.',flags:['crit'],note:'Never discard deglazed liquid. Never wipe the pan clean before this step. The flavour yield from a well-deglazed pan can transform a flat dish into a layered one.'},
+ ],
+ goesWith:[
+  {n:'True Caramelised Onion',cat:'base',why:'Every caramelised onion batch produces significant fond in the pan. Deglazing with 2 tbsp water at the 35-minute mark and incorporating it back into the onions adds another layer of depth to an already complex base.',tags:['Fond recovery','Depth+','Technique']},
+  {n:'Vetha Kuzhambu',cat:'gravy',why:'The vathal frying step creates significant fond in the oil. Deglazing with the tamarind water at the moment it goes in — rather than adding tamarind water to a clean pan — gives VK a depth that the recipe technique implicitly uses, made explicit here.',tags:['VK technique','Tamarind fond','Depth']},
+  {n:'Beetroot Fry',cat:'curry',why:'Caramelising beetroot creates purple-brown fond loaded with concentrated betalains. Deglazing with 1 tbsp water at the end and tossing the beetroot in it recovers every betalain and sugar that stuck to the pan.',tags:['Betalain↑','Fond recovery','Flavour max']},
+ ],
+ avoidWith:[
+  {n:'Cold liquid into a cold pan',why:'Deglazing only works when the pan is hot. Cold liquid into a cooled pan simply dissolves the fond slowly without the flavour-releasing steam explosion that hot deglazing creates. Always deglaze while the pan is still hot.',sev:'high'},
+  {n:'Wiping the pan before deglazing',why:'A common mistake when the fond looks like burning. It is not burning — it is flavour. Unless the fond is actually black and acrid-smelling (in which case discard and start again), always deglaze rather than wipe.',sev:'high'},
+ ],
+ science:'The fond consists primarily of Maillard reaction products — melanoidins and heterocyclic compounds formed when amino acids react with reducing sugars at high heat. These compounds are water-soluble, which is why liquid deglazing recovers them completely. The volatile aromatic compounds responsible for the roasted, complex flavour notes are released into the steam during deglazing, then reabsorb into the liquid as it cools slightly. This is the same chemistry that makes pan sauces in classical French cooking — the Tamil equivalent is the instinctive scraping of the kadai with dal water that experienced cooks do without naming it.',
+ begNotes:{'The fond looks burnt — should I still deglaze':'Smell it. If it smells toasty and complex, deglaze. If it smells acrid and bitter, the fond has gone too far — discard, wipe the pan, and continue. The line between dark fond and burnt fond is colour and smell.','What liquid should I use':'Match the dish. Dal cooking water for kootus (adds umami). Tamarind water for gravies. Plain water when you do not want to add flavour. A splash of any acid (tamarind, lemon) loosens fond faster than plain water.','My pan is non-stick — does this apply':'Non-stick pans do not develop fond because food cannot stick. This is their limitation, not their feature. For deglazing to work and for maximum flavour, you need stainless steel or cast iron.'}
+},
+
+{id:'base-beet-methods',cat:'base',en:'Five Ways to Cook Beetroot',ta:'பீட்ரூட் ஐந்து வழிகள்',
+ time:'Varies by method',serves:'500g beetroot',
+ appears:['Choose method by the dish','Salad → roasted','Curry → caramelised dice','Soup → boiled','Dip → roasted','Raita → boiled or steamed'],
+ nut:{c:11,p:2,f:0,kcal:52,fibre:3},
+ fat:{total:0,sat:0,mufa:0,pufa:0},chop40:false,
+ ing:[
+  {a:'500g',n:'Beetroot — medium sized',note:'Look for firm, heavy beets with intact skin. Soft spots mean age. The greens if attached should be perky.'},
+  {a:'As needed',n:'Oil (for roasting and caramelising methods only)'},
+  {a:'As needed',n:'Salt'},
+  {a:'1 tsp',n:'Acid — lemon juice or vinegar (for boiling water)',note:'Acid in the cooking water preserves the vivid purple-red colour — without it beets turn dull brownish-maroon'},
+ ],
+ steps:[
+  {t:'METHOD 1 — ROASTING: Preheat oven to 200°C. Do not peel. Scrub clean. Wrap each beet individually in foil. Roast 45–60 min until a knife slides in with no resistance.',timer:3000,flags:['crit'],note:'Roasting concentrates sugar dramatically — the beet becomes almost candy-sweet. The skin slips off effortlessly after roasting. This is the method for salads, dips, and eating cold. Highest betalain concentration because no water-leaching occurs.'},
+  {t:'METHOD 2 — CARAMELISED DICE (the poriyal method): Peel raw beet. Cut into 5mm brunoise dice — small, uniform. Cook in avocado oil on medium heat in a wide pan, uncovered, 15–18 minutes, stirring every 3 minutes.',timer:1080,note:'Small dice = more surface area = faster caramelisation. The beet sugars concentrate and darken. This is the method in the Beetroot Fry recipe. Deeply sweet with slightly dark edges. Completely different character from boiled beet.'},
+  {t:'METHOD 3 — BOILING: Keep skin on. Add to cold salted water with 1 tsp lemon juice. Bring to boil. Cook 30–45 minutes depending on size until knife-tender.',timer:2400,note:'Fastest method. Good for raita, chutney, and when you need beet as an ingredient. Loses some betalains to the water — the cooking water turns vivid purple and is actually worth keeping as a natural food colouring or adding to rasam.'},
+  {t:'METHOD 4 — STEAMING: Place whole unpeeled beets in a steamer basket over boiling water. Cover and steam 30–40 minutes.',timer:2100,note:'Better betalain retention than boiling because no water contact. Slightly better texture than boiling — the beet holds its structure slightly more. Good for any application where you want intact texture.'},
+  {t:'METHOD 5 — RAW GRATED: Peel and grate on large holes. Dress immediately with lemon juice and salt to prevent oxidation.',note:'Highest betalain and fibre content of all methods. Good for salads and koshambir. The raw flavour is earthy and slightly mineral — an acquired taste. Lemon juice brightens it significantly. Best consumed within 30 minutes of grating.'},
+  {t:'HOW TO PEEL WITHOUT STAINING: Wear gloves or oil your hands before peeling. For boiled and roasted beet — the skin slips off with no effort using fingers under cold running water. For raw beet — use a sharp vegetable peeler. Beet stains wash off hands with a paste of salt and lemon juice rubbed vigorously.',flags:['crit'],note:'Beet stain on cutting boards: rub with salt immediately, then lemon juice. On fabric: cold water immediately, never hot water. On counters: baking soda paste.'},
+ ],
+ goesWith:[
+  {n:'Beetroot Fry',cat:'curry',why:'The caramelised dice method (Method 2) is what the Beetroot Fry recipe uses. This base technique page explains the full why behind that specific method choice.',tags:['Method 2','Betalain↑','Caramel']},
+  {n:'Lebanese Kale Salad',cat:'salad',why:'Roasted beet (Method 1) is the correct method for this salad — concentrated sweetness that holds its own against the bold kale-walnut-goat cheese combination. Boiled beet would be too watery and mild.',tags:['Method 1','Salad best','Sweet max']},
+  {n:'Kollu (Horse Gram) Rasam',cat:'gravy',why:'The beet cooking water from Method 3 can be added to rasam in place of some of the plain water — it adds betalain pigments, subtle earthiness, and a vivid colour with no flavour disruption. A technique worth knowing.',tags:['Beet water','Betalain+','Zero waste']},
+ ],
+ avoidWith:[
+  {n:'Boiling peeled beet without acid in the water',why:'Betalains (the cholesterol-protective pigments) leach readily into water. Keeping the skin on and adding acid to the water retains significantly more betalain. Peeling before boiling loses up to 40% of betalain content.',sev:'med'},
+  {n:'Discarding the beet cooking water',why:'The purple water from boiling is loaded with betalains, potassium, and folate. Use it in rasam, use it to cook rice for a dramatic purple colour, add to smoothies, or use as natural food colouring.',sev:'caution'},
+  {n:'High heat when caramelising diced beet',why:'Beet has high natural sugar content — it burns easily on high heat. The caramelised method requires patient medium heat with regular stirring. High heat produces bitter, charred edges before the inside has cooked.',sev:'high'},
+ ],
+ science:'Beetroot betalains (betacyanins and betaxanthins) are the specific pigments responsible for the vivid colour and most of the cardiovascular protective effects. These are water-soluble and heat-stable up to approximately 75°C — above this temperature, degradation accelerates. This is why roasting (which keeps internal temperature lower for longer in a steam environment inside the foil) and steaming preserve more betalains than boiling in open water. The dietary nitrate content of beetroot — the compound that converts to nitric oxide and dilates blood vessels — is retained in all five methods since it does not degrade with heat. The 10–15 mmHg blood pressure reduction demonstrated in meta-analyses applies to all preparation methods.',
+ begNotes:{'Which method is the healthiest':'Roasting (Method 1) preserves the most betalains. Raw grating (Method 5) preserves everything. For daily cooking, the caramelised dice method (Method 2) is the most practical — it fits naturally into the poriyal format and produces the best flavour.','My beets are taking much longer than stated':'Beet size varies enormously. A small 80g beet roasts in 35 minutes. A large 200g beet can take 90 minutes. Always test with a knife rather than relying on time.','Can I pressure cook':'Yes — 3 whistles for medium beets. Quick and effective. Loses some betalains to the steam water but retains much more than open boiling. The cooking liquid from pressure cooking is less vivid but still nutritious.'}
+},
+
+{id:'base-tadka-science',cat:'base',en:'The Tadka — What Is Actually Happening',ta:'தாளிக்கும் அறிவியல்',
+ time:'3 min (applied to every recipe)',serves:'For 4 servings of any dish',
+ appears:['Opens every kootu','Opens every poriyal','Finishes every sambar and rasam','The most repeated technique in this kitchen'],
+ nut:{c:1,p:0,f:5,kcal:48,fibre:0},
+ fat:{total:5,sat:0.6,mufa:3.6,pufa:0.5},chop40:false,
+ ing:[
+  {a:'1 tbsp',n:'Avocado oil (or oil of choice)'},
+  {a:'¼ tsp',n:'Kalonji seeds — DRY PAN FIRST',note:'Always first, always dry. No exceptions in this kitchen.',flag:'kalonji'},
+  {a:'½ tsp',n:'Mustard seeds'},
+  {a:'1 tsp',n:'Urad dal (where recipe calls for it)',note:'Goes in before mustard when used — it needs more time to colour'},
+  {a:'1 tsp',n:'Cumin seeds (jeera)'},
+  {a:'1 sprig',n:'Curry leaves (10–12 leaves)',note:'Stand back when these hit oil — they spit intensely'},
+  {a:'1–2',n:'Dried red chilli, broken in half'},
+  {a:'¼ tsp',n:'Omam seeds (ajwain) where recipe calls for it — MAXIMUM 10 SECONDS',flag:'omam'},
+ ],
+ steps:[
+  {t:'THE ORDER MATTERS COMPLETELY. For this kitchen: Kalonji dry → oil → urad dal (if using) → mustard seeds → cumin → dried chilli → curry leaves. Each item has a different burn point. The order is a sequence of timed chemistry, not an arbitrary tradition.',flags:['crit'],note:'The order of tadka ingredients is one of the most important pieces of culinary knowledge in South Indian cooking. It is not arbitrary. Each spice has a specific temperature at which its volatile compounds release — too early and they are raw, too late and they are acrid. The sequence manages this.'},
+  {t:F.kalonji+'DRY PAN FIRST. No oil. Medium-high heat. Add kalonji. Stir 25–30 seconds until you hear a quiet crackle and smell something between oregano and onion.',timer:30,flags:['crit'],note:'Kalonji (nigella/thymoquinone) requires dry heat to activate its primary bioactive compound. In oil, thymoquinone never fully volatilises and the therapeutic effect is significantly reduced. This is a documented chemical phenomenon — dry heat is not optional for kalonji.'},
+  {t:'Add oil. Let it heat 10 seconds. Add urad dal if using — stir until pale gold, 20–25 seconds.',timer:25,note:'Urad dal is the slowest of the tadka ingredients. It needs 20–25 seconds in hot oil to turn pale gold and become the crunchy, nutty element that adds texture. Add it first after oil or it will still be raw when everything else is done.'},
+  {t:'Add mustard seeds. Wait — do not stir. They need 10–20 seconds to heat through before they pop.',timer:20,flags:['crit'],note:'Mustard seeds pop when internal moisture converts to steam — this requires sustained contact with the hot oil. Stirring disrupts this. Wait. The pop is not just visual — it is chemical. The glucosinolates in mustard seeds release their volatile compounds only when the cell wall ruptures from internal steam pressure.'},
+  {t:'FULL POP — wait for the popping to subside to occasional single pops. Then add cumin, chilli, and curry leaves simultaneously.',timer:15,flags:['crit'],note:'Mustard must fully pop before anything else is added. Partially popped mustard seeds are pungent and harsh. Fully popped mustard seeds are nutty, complex, and entirely different in flavour.'},
+  {t:'Curry leaves go in last among the solids. Stand back — they contain high water content and spit aggressively in hot oil.',timer:10,note:'The spit from curry leaves hitting oil is from steam explosions as their surface moisture vapourises. Use a lid as a shield if needed. The sizzle lasts 5–7 seconds and then stops. The curry leaves will be visibly brighter green and smell intensely aromatic.'},
+  {t:'The entire active tadka — from oil to curry leaves — should take no more than 90 seconds. The speed is part of the technique. A slow tadka means the oil was not hot enough and everything is steaming rather than frying.',timer:90,flags:['crit'],note:'Speed test: when you add the mustard seeds to properly hot oil, they should begin to move within 5 seconds. If they sit still and slowly darken, the oil is not hot enough. Remove the seeds, heat the oil more, and start again.'},
+  {t:F.omam+'If using omam (ajwain): add to the dry pan BEFORE oil, for exactly 10 seconds. Remove pan from heat if needed. Omam burns in 12 seconds and turns intensely bitter.',timer:10,flags:['crit'],note:'Omam is the most temperature-sensitive ingredient in this kitchen. It has a narrower window than any other spice — 8 to 10 seconds in a hot dry pan, no more. At 12 seconds it is ruined and will make the entire dish bitter.'},
+ ],
+ goesWith:[
+  {n:'Every kootu in this collection',cat:'kootu',why:'Every kootu opens with this tadka sequence. Understanding the why behind each step — why kalonji is dry, why mustard must fully pop, why curry leaves go last — makes the entire kootu collection make more sense.',tags:['Foundation','All kootus','Technique base']},
+  {n:'Every dry curry (poriyal)',cat:'curry',why:'Poriyals use a simplified version of this tadka — typically kalonji dry, then oil, urad dal, mustard, curry leaves. Same sequence logic, slightly shorter.',tags:['Foundation','All poriyals','Technique']},
+ ],
+ avoidWith:[
+  {n:'Adding kalonji to oil',why:'Kalonji in oil never fully activates thymoquinone — the primary therapeutic compound. Dry heat is required. This is the single non-negotiable rule of the tadka in this kitchen. Every recipe in this collection specifies dry pan first.',sev:'high'},
+  {n:'Adding ingredients before the oil is hot',why:'Cold oil tadka produces steamed spices with raw, harsh flavour and none of the volatile compound release that makes tadka work. The oil must shimmer and move freely before anything is added.',sev:'high'},
+  {n:'Leaving the tadka unattended',why:'The entire active tadka takes 60–90 seconds. In that 90 seconds everything can go from perfectly aromatic to burnt. This technique requires full attention for under 2 minutes.',sev:'high'},
+  {n:'Omam for more than 10 seconds',why:'This point is made in every recipe that uses omam but worth stating explicitly as a standalone rule: 10 seconds is the hard limit. Not 12. Not 15. Burnt omam is one of the few flavour mistakes in Indian cooking that cannot be rescued.',sev:'high'},
+ ],
+ science:'The tadka (also called chaunk, vaghar, or tarka) is a technique of blooming fat-soluble flavour compounds from spices by briefly frying them in oil at high temperature. The hot oil acts as a solvent and carrier for the lipophilic volatile compounds in each spice — these would be largely inaccessible if the spices were added directly to water-based dishes. Cumin for example contains cuminaldehyde, a volatile that releases only above 160°C — the temperature of hot oil, not boiling water (100°C). Mustard seeds contain sinigrin — a glucosinolate that converts to allyl isothiocyanate (the compound responsible for the sharp, complex mustard aroma) when the cell wall ruptures during popping. Curry leaf linalool and beta-caryophyllene are particularly volatile and are most effectively delivered into a dish via a brief high-temperature oil contact rather than long simmering.',
+ begNotes:{
+  'My mustard seeds do not pop':'Either the oil is not hot enough or you stirred them before they had time to heat through. Mustard seeds need sustained contact with hot oil — they take 10–15 seconds to heat internally before popping. Wait, do not stir.','My tadka smells burnt':'The oil was too hot OR the sequence was too slow — either the oil overheated while you were preparing ingredients, or each step took too long and cumulative heat burnt the earlier items. Have everything measured and ready before the pan goes on heat.','What if I do not have curry leaves':'Substitute nothing. Skip them. Dried curry leaves are not an adequate substitute and have a fraction of the volatile compound content of fresh. Buy fresh curry leaves, they keep 2 weeks in the fridge in a damp cloth.'}
+},
+
+{id:'base-pressure-cooker',cat:'base',en:'Pressure Cooker Mastery — Dal Textures',ta:'குக்கரில் பருப்பு — சரியான பதம்',
+ time:'Reference guide',serves:'Any quantity',
+ appears:['Before cooking any dal','Reference before every kootu','Before making sambar'],
+ nut:{c:20,p:10,f:1,kcal:126,fibre:6},
+ fat:{total:1,sat:0.1,mufa:0.2,pufa:0.3},chop40:false,
+ ing:[
+  {a:'Any quantity',n:'Dal — see whistle guide below'},
+  {a:'2.5× volume',n:'Water (standard ratio for most dals)',note:'i.e. 1 cup dal = 2.5 cups water for normal cooking'},
+  {a:'¼ tsp',n:'Turmeric — always',note:'Reduces foam, adds colour, anti-inflammatory'},
+  {a:'Few drops',n:'Oil — prevents foam overflow',note:'½ tsp oil stops the foam that causes pressure cooker venting'},
+ ],
+ steps:[
+  {t:'THE WHISTLE GUIDE — memorise these or save this page:\n\nMOONG DAL: 2 whistles = soft but holds shape (kootu). 3 whistles = creamy (soup, cheela).\n\nTOOR DAL: 3 whistles = holds some shape (sambar). 4 whistles = very soft (kootu, mash).\n\nCHANA DAL: 3 whistles = al dente (kootu). 4 whistles = fully soft.\n\nHORSE GRAM (KOLLU): 4 whistles = just cooked. 5 whistles = very soft. Always soak 4+ hours first.\n\nWHOLE CHANA / RAJMA: Soak overnight. 5–6 whistles. No shortcut.',flags:['crit'],note:'Whistle count varies slightly by pressure cooker model and stove. These numbers are for a standard 5L Indian pressure cooker on medium-high flame. If your cooker runs hot, subtract one whistle. If your cooker is large (7.5L+), add one.'},
+  {t:'TEXTURE CONTROL: The difference between 2 and 4 whistles for moong is the difference between dal with texture (correct for kootu) and dal that has disappeared into the dish (incorrect for kootu, correct for soup). Decide the texture before you start.',flags:['crit'],note:'This is the most common dal mistake in home cooking — cooking dal to the wrong texture for the dish. Toor for sambar should have some body remaining. Toor for kootu can be slightly more cooked. Moong for kootu must hold shape. Moong for adai or cheela can be completely soft.'},
+  {t:'AFTER WHISTLES: Turn off heat. Let pressure release naturally — do not force it. Natural release takes 8–12 minutes and continues cooking the dal gently without overcooking.',timer:600,note:'Forcing pressure release (running under cold water) stops the cooking abruptly. For most dals this is fine. For horse gram, natural release is particularly important — the additional 10 minutes of gentle residual heat finishes the cooking without making the dal mushy.'},
+  {t:'RESERVE THE COOKING WATER ALWAYS. Every dal produces cooking water loaded with dissolved starch, umami compounds, and soluble nutrients. This is what you use to adjust kootu and sambar consistency — never plain water.',flags:['crit'],note:'Dal cooking water is one of the most useful things in this kitchen. It adds quiet depth to anything it touches. Keep it. Use it. Never pour it down the drain.'},
+  {t:'SOAK TIMES that genuinely matter:\nHorse gram: 4 hours minimum, overnight ideal. Without soaking: 8+ whistles and still tough.\nWhole chana/rajma: overnight. Without soaking: 10+ whistles and uneven texture.\nChana dal: 30 minutes improves texture significantly. Not required but worth it.\nMoong / toor / masoor: no soaking needed.',note:'The soaking reduces phytic acid content (which inhibits zinc and iron absorption) and reduces cooking time. Both benefits are real. For horse gram specifically, soaking is not optional — unsoaked kollu will not fully cook even with excessive pressure.'},
+ ],
+ goesWith:[
+  {n:'Every kootu',cat:'kootu',why:'Every kootu depends on dal cooked to the correct texture. This reference page is the foundation for all seven kootus in this collection.',tags:['Dal foundation','All kootus','Texture control']},
+  {n:'Murungakkai Sambar',cat:'gravy',why:'Toor for sambar is specifically 3–4 whistles to a soft but slightly textured consistency — it should mash easily against the roof of the mouth but not be a smooth paste. This distinction is what separates good sambar texture from great sambar texture.',tags:['Toor texture','Sambar base','Technique']},
+ ],
+ avoidWith:[
+  {n:'Filling the cooker more than half full with dal + water',why:'Dal expands significantly and produces substantial foam. More than half capacity risks blocking the pressure valve — a safety hazard. Always stay at or below half full.',sev:'high'},
+  {n:'Skipping the oil drops when cooking foamy dals',why:'Moong, chana, and especially horse gram produce significant foam that can clog the pressure vent. A few drops of oil breaks the surface tension of the foam and prevents this.',sev:'high'},
+  {n:'Discarding the dal cooking water',why:'Nutritionally and flavour-wise this is the most valuable liquid in the dish. Every recipe in this collection that uses dal specifically calls for the cooking water to be reserved.',sev:'med'},
+ ],
+ science:'Pressure cooking raises the boiling point of water to approximately 121°C at standard 15 psi — compared to 100°C at atmospheric pressure. This 21-degree increase dramatically accelerates the gelatinisation of starch (the softening mechanism in legumes) and the hydration of legume proteins. Phytic acid (the mineral-binding antinutrient in legumes) reduces by 50–60% with soaking alone and a further 20–30% with pressure cooking, compared to only 10–15% reduction with regular boiling. Horse gram specifically has the highest phytic acid content of any common dal — the extended soak time is the most effective intervention for improving its mineral bioavailability while preserving its therapeutic polyphenols and tannins.',
+ begNotes:{
+  'My dal always turns out too mushy':'You are using too many whistles OR your cooker runs hot. Reduce by one whistle and check.','Different cooker brands seem different':'Yes. A Hawkins and a Prestige of the same size can vary by 1–2 whistles for the same dal. Keep a note of your specific cooker calibration.','Can I cook dal without a pressure cooker':'Yes — regular pot, covered, medium heat. Moong: 20–25 min. Toor: 35–40 min. Chana: 60–70 min soaked. Horse gram soaked: 90+ min. Reserve 3× the water.'}
+},
+
+{id:'base-tempering-timing',cat:'base',en:'When Ingredients Are Added — The Tamil Kitchen Hierarchy',ta:'எப்போது என்ன சேர்க்கணும்',
+ time:'Reference guide',serves:'Universal',
+ appears:['Before starting any new recipe','Teaching someone to cook','Understanding why each step is where it is'],
+ nut:{c:0,p:0,f:0,kcal:0,fibre:0},
+ fat:{total:0,sat:0,mufa:0,pufa:0},chop40:false,
+ ing:[
+  {a:'This recipe',n:'has no ingredients',note:'It is a reference guide for understanding why ingredients go in when they do in every other recipe'},
+ ],
+ steps:[
+  {t:'THE FIVE HEAT STAGES of a Tamil dish — every recipe in this collection follows this structure:\n\n1. DRY HEAT STAGE: kalonji, omam, sesame seeds. These need the pan before oil.\n2. OIL BLOOMING STAGE: mustard, cumin, urad dal, curry leaves, dried chilli. Fat-soluble compounds released.\n3. BASE BUILDING STAGE: onion/shallot/garlic/ginger. Water content reduces, sugars concentrate.\n4. ACID AND LIQUID STAGE: tomato, tamarind, dal, vegetables. Water-soluble compounds dissolve.\n5. OFF HEAT STAGE: amla, flaxseed, fresh herbs, honey. Heat-sensitive nutrients protected.',flags:['crit'],note:'Every recipe in this kitchen fits this five-stage structure. Once you understand the framework, you can improvise, substitute, and adapt any recipe without losing the nutritional logic.'},
+  {t:'WHY ACID GOES LATE: Tomato, tamarind, and lemon contain acids that toughen legume skins and slow vegetable softening if added too early. Always cook the base and vegetables first, add acid after they have softened.',flags:['crit'],note:'This is why sambar adds tamarind after the dal is already cooked, not before. Acid in the cooking water prevents full softening of lentils. This is food science, not superstition.'},
+  {t:'WHY SALT TIMING MATTERS: Salt added at the start of onion cooking draws moisture out and speeds caramelisation. Salt added to vegetables mid-cook draws moisture and helps softening. Salt added to dal too early slows cooking. Salt added to green vegetables too early causes colour loss. Each recipe specifies salt timing for a reason.',flags:['crit'],note:'Salt is not just flavour — it is texture management. The timing in each recipe is specific and intentional.'},
+  {t:'WHY OFF-HEAT ADDITIONS EXIST — amla, flaxseed, fresh herbs:\nAmla (Indian gooseberry powder): vitamin C and polyphenols degrade above 70°C. Adding after heat drops below this threshold retains 80%+ of vitamin C compared to 15% if boiled.\nFlaxseed ground: omega-3 ALA oxidises and lignans denature above 85°C. Off heat is the safe zone.\nFresh coriander and mint: chlorophyll and volatile aromatics both destroyed by heat. Always off heat.',flags:['crit'],note:'These are not garnishes. They are therapeutic ingredients that have been positioned at the end of cooking for specific nutritional reasons. The 30-second wait after turning off heat is the cooldown that makes the off-heat additions safe.'},
+  {t:'WHY THE 40-MINUTE CHOP RULE: Cruciferous vegetables (cauliflower, broccoli, cabbage, kale, radish, turnip, kohlrabi) contain glucosinolates that convert to sulforaphane via the enzyme myrosinase. Myrosinase is activated by chopping and destroyed by heat. Chopping 40 minutes before cooking gives myrosinase time to complete conversion. Once sulforaphane is formed, it survives cooking even though the enzyme is destroyed. This is the only window.',flags:['crit'],note:'This is the most important single technique in this collection. No other modification to these recipes improves their cancer-protective properties more than this one step.'},
+ ],
+ goesWith:[
+  {n:'Every recipe in this collection',cat:'base',why:'This is the master framework that explains the logic behind every recipe. Read this once. It makes every other recipe easier to understand, remember, and adapt.',tags:['Master framework','All recipes','Understanding']},
+ ],
+ avoidWith:[
+  {n:'Adding amla or flaxseed before heat is off',why:'The entire nutritional purpose of adding these ingredients exists in the off-heat step. If they go in during active cooking, the omega-3s oxidise, the vitamin C degrades, and the lignans denature. The delay of 30 seconds costs nothing and protects everything.',sev:'high'},
+  {n:'Adding acid (tamarind, tomato, lemon) to uncooked legumes',why:'Acid prevents full hydration of legume cell walls. Dal and legumes must be cooked to at least 80% of target softness before any acidic ingredient is added.',sev:'high'},
+ ],
+ science:'The five-stage structure of Tamil cooking is not arbitrary tradition — it maps directly onto the solubility and volatility properties of the compounds being extracted. Fat-soluble volatile compounds (cumin cuminaldehyde, mustard allyl isothiocyanate, curry leaf linalool) require hot oil for extraction — Stage 2. Water-soluble compounds (tamarind hydroxycitric acid, tomato lycopene precursors, dal starch) dissolve in water — Stage 4. Heat-labile compounds (vitamin C, omega-3 ALA, chlorophyll, fresh herb volatiles) must be protected from heat — Stage 5. The cook who understands this can modify any recipe without losing its nutritional architecture.',
+ begNotes:{
+  'I always forget the order':'Print this page. Stick it inside a kitchen cabinet. The five stages are the skeleton of every recipe in Tamil cooking. Once memorised it is never forgotten.','Does the order matter if I am using the same ingredients':'Yes always. The same ingredients added in the wrong order produce measurably different flavour profiles and different nutritional yields. This is not about tradition — it is chemistry.','What if a recipe does not follow this order':'Then it is either a shortcut version (acceptable for weekdays) or a different culinary tradition. Every full-technique recipe in this collection follows this framework deliberately.'}
+},
+
+{id:'base-knife-cuts',cat:'base',en:'Tamil Kitchen Cuts — Size and Shape Matters',ta:'சரியான வெட்டு முறை',
+ time:'Practice technique',serves:'Universal',
+ appears:['Before cooking any vegetable','Understanding why size matters','Teaching new cooks'],
+ nut:{c:0,p:0,f:0,kcal:0,fibre:0},
+ fat:{total:0,sat:0,mufa:0,pufa:0},chop40:false,
+ ing:[
+  {a:'This is',n:'a technique guide — no ingredients',note:'Apply to whichever vegetable you are preparing'},
+ ],
+ steps:[
+  {t:'THE MOST IMPORTANT CUT PRINCIPLE: uniform size means uniform cooking. If pieces vary in size, small pieces overcook while large pieces are still raw. Every recipe in this collection specifies a cut size — this is not decoration.',flags:['crit'],note:'This sounds obvious but it is the most common technique error in home cooking. A mix of 5mm and 3cm pieces of the same vegetable will never cook evenly. The 5mm pieces will be mush before the 3cm pieces are done.'},
+  {t:'CUTS USED IN THIS KITCHEN:\n\nBRUNOISE (5mm dice): Beetroot fry. Small cubes maximise surface area for caramelisation and create the jammy dark-edged texture that defines this dish.\n\n2cm CUBES: Yellow pumpkin kootu, ash gourd, sweet potato. Holds shape through cooking without dissolving.\n\nTHIN HALF-MOONS (3mm): Kovakkai. Thin enough to caramelise and crisp at edges. Thick kovakkai stays pale and soft.\n\nDIAGONAL PIECES (2–3cm): Beans, avarakkai. Diagonal cut creates more surface area than straight cuts — better flavour absorption from tadka.\n\nFINE SHRED (3mm): Cabbage for poriyal. Uniform thin shred maximises glucosinolate surface for myrosinase activation during the 40-min rest.',flags:['crit'],note:'Each cut in each recipe exists for a specific reason. Understanding the reason makes you a better cook even when you adapt recipes.'},
+  {t:'THE 40-MINUTE CHOP — WHAT COUNTS AS CHOPPING: Any cut that breaks the cell wall counts. Shredding, slicing, dicing, grating — all activate myrosinase. Whole uncut cruciferous vegetables do not activate it. Size does not matter for the enzyme activation — even roughly torn pieces activate it. But size matters for even cooking, so cut to recipe specification regardless.',note:'You can chop cruciferous vegetables to the final size and leave them 40 minutes. You do not need a special pre-chop followed by a re-chop. One cut, then the wait, then straight into cooking.'},
+  {t:'HOW TO JUDGE DONENESS BY VEGETABLE TYPE:\n\nFIRM VEGETABLES (carrot, beetroot, turnip, sweet potato): knife should slide in with light resistance — like pushing through soft butter. Not mushy, not crunchy.\n\nSOFT VEGETABLES (ridge gourd, surakkai, ash gourd): yield completely to a fork — like ripe avocado pressure.\n\nGREEN VEGETABLES (beans, avarakkai, broccoli): bite test — slight resistance, not soft. Still green, not grey-green.\n\nCRUCIFEROUS (cauliflower, cabbage): slightly past al dente — no raw crunch but not mushy. They continue cooking off heat.',flags:['crit'],note:'The knife test, fork test, and bite test are the actual tools of cooking. Timers are guidance. These tests are truth.'},
+ ],
+ goesWith:[
+  {n:'Beetroot Fry',cat:'curry',why:'The brunoise cut specified in that recipe is explained here — 5mm dice maximises caramelisation surface. The connection between the cut and the flavour outcome is made explicit.',tags:['Brunoise','Surface area','Caramel↑']},
+  {n:'Cabbage Poriyal',cat:'curry',why:'The 3mm fine shred specified is here explained as both a glucosinolate activation tool (more surface area for myrosinase) and a cooking tool (shred this fine cooks evenly in under 8 minutes without steaming).',tags:['Shred + sulforaphane','Even cook','Technique']},
+ ],
+ avoidWith:[
+  {n:'Mixed sizes in one dish',why:'The single most common cause of unevenly cooked vegetables. If the recipe says 2cm cubes, all pieces should be 2cm cubes. This is not pedantry — it is the only way to achieve consistent texture throughout a dish.',sev:'high'},
+  {n:'Pre-cutting vegetables hours in advance (except cruciferous)',why:'Most vegetables begin oxidising and losing volatile compounds within 30–60 minutes of cutting. The exception is cruciferous — these should be cut 40 minutes before cooking specifically to activate myrosinase. All other vegetables should be cut as close to cooking as practical.',sev:'med'},
+ ],
+ science:'Surface area determines the rate of heat transfer, the rate of flavour compound extraction into cooking oil, and the rate of enzymatic reactions including myrosinase activation. A 5mm brunoise has approximately 8× the surface area per unit volume of a 2cm cube. This is why the beetroot brunoise caramelises in 15–18 minutes while larger beet pieces would take 30+ minutes. It is also why the fine cabbage shred produces more sulforaphane per gram than a coarsely cut cabbage — more surface area means more myrosinase contact with glucoraphanin substrate during the 40-minute rest.',
+ begNotes:{
+  'My vegetables always cook unevenly':'Check your cut. If you can see visible size differences in the pan, that is the cause. Take an extra 2 minutes to make cuts more uniform.','How sharp does my knife need to be':'Sharp enough that it falls through a tomato under its own weight without needing downward pressure. A dull knife tears cells rather than cutting them cleanly — torn cells oxidise faster and release water unevenly in the pan.','I do not have a sharp knife':'Sharpen it. A sharp knife is the single most important kitchen tool. A cheap sharp knife makes better food than an expensive dull one.'}
 }
 
 ];
