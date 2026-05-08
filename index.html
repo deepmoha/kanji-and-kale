@@ -182,7 +182,8 @@ html,body{font-family:'Work Sans',sans-serif;background:var(--bg);color:var(--in
     <a class="nav-item" href="recipes.html"><span class="ni">🃏</span>Recipes</a>
     <a class="nav-item" href="shopping.html"><span class="ni">🛒</span>Shop</a>
     <a class="nav-item" href="planner.html"><span class="ni">📅</span>Plan</a>
-    <a class="nav-item" href="sprouting.html"><span class="ni">🌱</span>Sprouts</a>
+    <!-- ✅ ADDED: Spice Blends in bottom nav -->
+    <a class="nav-item" href="spice-blends-printable.html"><span class="ni">🌶️</span>Spices</a>
   </nav>
 </div>
 
@@ -386,7 +387,6 @@ function renderDash() {
   const healthTags = (p.health||[]).slice(0,4);
   const avoidTags = (p.avoid||[]).filter(a => a !== 'None of the above').slice(0,3);
 
-  // Personalised tips based on health goals
   const tips = buildTips(p);
 
   document.getElementById('dashContent').innerHTML = `
@@ -420,6 +420,12 @@ function renderDash() {
         <div class="ql-ico">🌱</div>
         <div class="ql-title">Sprout tracker</div>
         <div class="ql-sub">Broccoli, radish and methi cycles</div>
+      </a>
+      <!-- ✅ ADDED: Spice Blends quick link card -->
+      <a class="ql-card" href="spice-blends-printable.html" style="grid-column:1/-1">
+        <div class="ql-ico">🌶️</div>
+        <div class="ql-title">Spice Blend Reference</div>
+        <div class="ql-sub">World kitchen ratios — Bengali, Punjabi, Marathi, South Indian, Moroccan, Asian · Kootu & dry subzi style · Flavor boosters</div>
       </a>
     </div>
 
@@ -510,7 +516,6 @@ document.addEventListener('DOMContentLoaded', function() {
       if (lw) lw.style.display = 'block';
     }
   } catch(e) {
-    // Fallback: just show landing
     var lw = document.getElementById('landingWrap');
     if (lw) lw.style.display = 'block';
     console.error('Init error:', e);
